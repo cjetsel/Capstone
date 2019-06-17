@@ -1,4 +1,4 @@
-# capstone
+# client
 
 ## Project setup
 ```

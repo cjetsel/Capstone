@@ -1,6 +1,6 @@
 {
-  "name": "capstone",
-  "short_name": "capstone",
+  "name": "client",
+  "short_name": "client",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
