@@ -11,15 +11,16 @@ let _commentSchema = new Schema({
 
 let _schema = new Schema({
   name: { type: String, required: true },
+  houseId: { type: ObjectId, ref: "House", required: true },
   description: { type: String },
-  memberId: { type: ObjectId, ref: "House" }, //will need TA clarification on how we look for the Id's
   assignmentDate: { type: "String" },
-  adminId: { type: ObjectId, ref: "House" },
+  adminId: { type: ObjectId, ref: "User", },
   memberComplete: { type: Boolean, default: false },
   adminComplete: { type: Boolean, default: false },
   comments: [_commentSchema],
   pointValue: { type: Number },
-  icon: { type: String }
+  icon: { type: String },
+  memberId: { type: ObjectId, ref: 'User' }
 }, { timestamps: true })
 
 

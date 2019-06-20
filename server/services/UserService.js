@@ -9,13 +9,13 @@ const SALT = 10
 
 let _schema = new Schema({
   name: { type: String, required: true },
-  //every email must be unique on the database
+  username: { type: String, required: true, unique: true },
   email: { type: String, unique: true },
   hash: { type: String, required: true },
-  username: { type: String, required: true, unique: true },
-  households: { type: String }
+  households: [{ type: ObjectId, ref: "House" }],
+  admin: { type: Boolean, default: false }
 
-}, { timestamps: true })
+}, { timestamps: true, usePushEach: true })
 
 //schema.methods are used to add a method to a Model instance
 _schema.methods.validatePassword = function (password) {
