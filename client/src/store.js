@@ -21,18 +21,36 @@ let api = Axios.create({
 
 export default new Vuex.Store({
   state: {
+    user: {},
+    house: {},
+    houses: [],
+    chores: []
 
   },
   mutations: {
+    setUser(state, user) {
+      state.user = user
+    },
+    setActiveHouse(state, house) {
+      state.house = house
+    },
+    setHouses(state, houses) {
+      state.houses = houses
+    },
 
+
+    setChores(state, chores) {
+      state.chores = chores
+    }
   },
   actions: {
+
     //#region -- AUTH STUFF --
     register({ commit, dispatch }, newUser) {
       auth.post('register', newUser)
         .then(res => {
           commit('setUser', res.data)
-          router.push({ name: 'boards' })
+          router.push({ name: 'createhouse' })
         })
     },
     authenticate({ commit, dispatch }) {
@@ -49,8 +67,9 @@ export default new Vuex.Store({
       auth.post('login', creds)
         .then(res => {
           commit('setUser', res.data)
-          router.push({ name: 'boards' })
+          dispatch('getHouses')
         })
+
     },
     logout({ commit, dispatch }) {
       auth.delete('logout')
@@ -59,6 +78,43 @@ export default new Vuex.Store({
         })
     },
     //#endregion
+    //#region --House Stuff--
+    async addHouse({ commit, dispatch }, newHouse) {
+      await api.post('/house', newHouse)
+        .then(res => {
+          dispatch('getHouses')
+        })
+    },
+    async getActiveHouse({ commit, dispatch }, houseId) {
+      await api.get('/house/' + houseId)
+        .then(res => {
+          commit('setActiveHouse', res.data)
+          router.push({ name: 'home', params: { houseId: houseId } })
+        })
+    },
 
+    async getHouses({ commit, dispatch }) {
+      await api.get('/house/')
+        .then(res => {
+          commit('setHouses', res.data)
+          router.push({ name: 'houses' })
+        })
+    },
+
+    async createChore({ commit, dispatch }, newChore) {
+      await api.post('/chores')
+        .then(res => {
+          dispatch('getChores', res.data)
+        })
+    },
+    async getChores({ commit, dispatch }) {
+      await api.get('/chores')
+        .then(res => {
+          commit('setChores', res.data)
+        })
+    }
+
+
+    // #endregion
   }
 })

@@ -7,6 +7,19 @@
 
 </template>
 
+
+<script>
+  export default {
+    name: "App",
+    methods: {
+      logoutUser() {
+        this.$store.dispatch("logout")
+      }
+    }
+  }
+
+</script>
+
 <style>
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -27,5 +40,15 @@
 
   #nav a.router-link-exact-active {
     color: #42b983;
+  }
+
+  /* Button styling */
+  .btn {
+    padding: .375rem .375rem !important;
+  }
+
+  .button-img {
+    width: 12vw;
+
   }
 </style>
