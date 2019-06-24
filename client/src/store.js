@@ -2,19 +2,21 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Axios from 'axios'
 import router from './router'
+import { runInNewContext } from 'vm';
 
 Vue.use(Vuex)
 let base = window.location.host.includes('localhost:8080') ? '//localhost:3000/' : '/'
 
 let auth = Axios.create({
   baseURL: base + "auth/",
-  timeout: 3000,
+  timeout: 9000,
+  // was 3000
   withCredentials: true
 })
 
 let api = Axios.create({
   baseURL: base + "api/",
-  timeout: 3000,
+  timeout: 9000,
   withCredentials: true
 })
 
@@ -89,7 +91,6 @@ export default new Vuex.Store({
       await api.get('/house/' + houseId)
         .then(res => {
           commit('setActiveHouse', res.data)
-          router.push({ name: 'home', params: { houseId: houseId } })
         })
     },
 
@@ -102,19 +103,37 @@ export default new Vuex.Store({
     },
 
     async createChore({ commit, dispatch }, newChore) {
-      await api.post('/chores')
+      await api.post('/chores', newChore)
         .then(res => {
-          dispatch('getChores', res.data)
+
+          dispatch('getChores', res.data.houseId)
         })
     },
-    async getChores({ commit, dispatch }) {
-      await api.get('/chores')
+    async getChores({ commit, dispatch }, houseId) {
+      await api.get('/house/' + houseId + '/chores')
         .then(res => {
+
           commit('setChores', res.data)
         })
-    }
+    },
+    async deleteChore({ commit, dispatch }, data) {
+      await api.delete('/chores/' + data._id)
+        .then(res => {
+          dispatch('getChores', data.houseId)
+        })
+    },
+    async editChore({ commit, dispatch }, data) {
 
+      let res = await api.put('/chores/' + data._id, data)
+        .then(res => {
 
-    // #endregion
+          dispatch('getChores', data.editedChore.houseId)
+        })
+    },
+
   }
+
+
+  // #endregion
 })
+

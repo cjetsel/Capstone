@@ -15,8 +15,8 @@
           <div class="col-2 mx-2"><img class="button-img" src="../assets/house.png" alt="">Settings</div>
           <!-- to add and assign chores, click the chore button! -->
           <div class="col-2 mx-2">
-            <router-link :to="{name: 'chore', params: {houseId: house._id}}"><img class="button-img"
-                src="../assets/cleaner.png" alt="">
+            <router-link :to="{name: 'chore', params: {houseId}}"><img class="button-img" src="../assets/cleaner.png"
+                alt="">
             </router-link>Chore
           </div>
           <!-- to view and edit points, click the points button -->

@@ -11,8 +11,9 @@
       <div class="col-6 house height-25 mb-3" v-for="house in houses">
         <div class="row height-25 justify-content-center">
           <div class="col-10 align-self-center bg-transparent rounded">
-            <router-link :to="{name: 'house', params: {houseId: house._id}}" <h5 @click="setActiveHouse(house._id)">
-              <strong>{{house.name}}</strong></h5>
+            <router-link :to="{name: 'home', params: {houseId: house._id}}">
+              <h5 @click="setActiveHouse(house._id)">
+                <strong>{{house.name}}</strong></h5>
             </router-link>
           </div>
         </div>

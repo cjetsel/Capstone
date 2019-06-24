@@ -34,9 +34,10 @@ export default new Router({
       component: CreateHouse
     },
     {
-      path: "/chore",
+      path: "/:houseId/chore",
       name: "chore",
-      component: Chore
+      component: Chore,
+      props: true
     },
 
     {

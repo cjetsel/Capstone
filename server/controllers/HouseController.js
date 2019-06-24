@@ -19,9 +19,9 @@ export default class HouseController {
     this.router = express.Router()
       .use(Authorize.authenticated)
       .get('', this.getAll)
-      .get('/:id', this.getById)
       .get('/:id/users', this.getUsersByHouseId)
       .get('/:id/chores', this.getChoresByHouseId)
+      .get('/:id', this.getById)
       .post('', this.create)
       .put('/:id/user', this.addUser)
       .put('/:id/admin', this.addAdmin)
@@ -151,7 +151,9 @@ export default class HouseController {
 
   async getChoresByHouseId(req, res, next) {
     try {
-      let chores = await _choreRepo.find({ houseId: req.body.houseId })
+      let house = req.params.id
+      let chores = await _choreRepo.find({ houseId: house })
+      // { houseId: req.body.houseId }
       return res.send(chores)
     } catch (error) { next(error) }
   }
