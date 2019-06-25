@@ -48,7 +48,7 @@
 
   export default {
     name: 'home',
-    props: ['houseId', 'admins'],
+    props: ['houseId'],
     beforeCreated() {
     },
     mounted() {

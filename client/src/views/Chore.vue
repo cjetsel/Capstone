@@ -178,7 +178,9 @@
     },
     methods: {
       createChore() {
-        this.$store.dispatch('createChore', this.newChore)
+        if (this.isAdmin) {
+          this.$store.dispatch('createChore', this.newChore)
+        }
       },
       deleteChore(choreId) {
         let data = {
@@ -201,6 +203,9 @@
       chores() {
         return this.$store.state.chores
       },
+      isAdmin() {
+        return this.$store.getters.isAdmin
+      }
 
     }
   }
