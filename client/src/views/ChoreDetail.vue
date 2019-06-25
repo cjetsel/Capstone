@@ -1,12 +1,5 @@
 <template>
-  <!-- Drunk chelsey decided to 'impart knowledge'
-  enjoy brothers.
-  container-fluid with
-  row 2 col
-  row col-12
-  row textarea
-  row button
-  -->
+
 
   <div class="container-fluid">
     <form @submit.prevent="createChore">
