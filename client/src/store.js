@@ -109,7 +109,7 @@ export default new Vuex.Store({
       await api.get('/users/' + userId + '/house')
         .then(res => {
           commit('setHouses', res.data)
-          router.push({ name: 'houses' })
+          // router.push({ name: 'houses' })
         })
     },
     // #endregion
@@ -169,7 +169,6 @@ export default new Vuex.Store({
   // #endregion
   getters: {
     isAdmin(state) {
-      debugger
       return state.house.admins ? state.house.admins.findIndex(a => a == state.user._id) > -1 : false
     }
   }
