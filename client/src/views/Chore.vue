@@ -111,8 +111,8 @@
                   <input class="form-control" type="text" :placeholder="chore.name" v-model="editedChore.name">
                 </div>
                 <div class="col-3">
-                  <input class="form-control" type="number" :placeholder="chore.pointValue"
-                    v-model="editedChore.pointValue">
+                  <input class="form-control" type="N
+                  umber" :placeholder="chore.pointValue" v-model="editedChore.pointValue">
                 </div>
               </div>
               <div class="row my-1">

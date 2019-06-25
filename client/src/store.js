@@ -73,6 +73,7 @@ export default new Vuex.Store({
         .then(res => {
           commit('setUser', res.data)
           dispatch('getHousesByMember', res.data._id)
+          router.push({ name: 'houses' })
         })
 
     },
