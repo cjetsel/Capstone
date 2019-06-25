@@ -32,11 +32,49 @@ export default class ChoreController {
     catch (err) { next(err) }
   }
 
+  // async removeMember(req, res, next) {
+  //   try {
+  //     let [house, user] = await Promise.all([
+  //       _repo.findOne({ _id: req.params.id, admins: { $in: [req.session.uid] } }), //find house with _id and where the session id is inside the admins array
+  //       _userRepo.findOne({ _id: req.params.memberId })
+  //     ])
+  //     if (house && user) {
+  //       let exists = house.members.find(aId => aId.equals(user._id))
+  //       if (exists) {
+  //         let userToRemove = house.members.indexOf(user._id)
+  //         let houseToRemove = user.households.indexOf(house._id)
+  //         user.households.splice(houseToRemove, 1)
+  //         house.members.splice(userToRemove, 1)
+  //         house.save(e => {
+  //           if (e) {
+  //             return next(e)
+  //           } else {
+  //             user.save(e => {
+  //               if (e) {
+  //                 return next(e)
+  //               }
+  //               return res.send({ house, user })
+  //             })
+
+  //           }
+  //         })
+  //       } else {
+  //         return res.status(400).send('already a member')
+  //       }
+  //     }
+  //   } catch (e) {
+
+  //   }
+  // }
+
+
+
+
   async createChore(req, res, next) {
     // let house = await _repo.findById({ houseId: req.params.id })
     // if (house.admins.contains(req.session.uid) || house.superAdmin == req.session.uid)
-    let house = await _houseRepo.find({ houseId: req.body.houseId, superAdmin: req.session.uid })
-    if (house.length !== 0) {
+    let house = await _houseRepo.findOne({ houseId: req.body.houseId, admins: { $in: [req.session.uid] } })
+    if (house) {
       try {
         let data = await _repo.create(req.body)
         return res.status(201).send(data)
@@ -50,7 +88,7 @@ export default class ChoreController {
     } catch (error) { next(error) }
   }
   async editChore(req, res, next) {
-    let house = await _houseRepo.find({ _id: req.body.editedChore.houseId, members: req.session.uid })
+    let house = await _houseRepo.findOne({ _id: req.body.editedChore.houseId, members: { $in: [req.session.uid] } })
     try {
       if (house) {
         let chore = await _repo.findOne({ _id: req.body._id })

@@ -1,6 +1,7 @@
 <template>
 
   <!-- Pseudo code for walkthough -->
+
   <div class="container-fluid">
     <div class="row mt-5">
       <div class="col-1">
@@ -15,29 +16,8 @@
         <h3>Welcome to House {{house.name}}, {{user.name}}!</h3>
       </div>
     </div>
-    <div class="row button-routes mb-2">
-      <div class="col-12">
-        <div class="row justify-content-center">
-          <!-- --this should be EDIT, it contains all edit of household info so ?? ask team mystic-- -->
-          <div class="col-2 mx-2">
-            <router-link :to="{name: 'settings', params: {houseId}}"><img class="button-img" src="../assets/house.png"
-                alt="">
-            </router-link>
-            Settings
-          </div>
-          <!-- to add and assign chores, click the chore button! -->
-          <div class="col-2 mx-2">
-            <router-link :to="{name: 'chore', params: {houseId}}"><img class="button-img" src="../assets/cleaner.png"
-                alt="">
-            </router-link>Chore
-          </div>
-          <!-- to view and edit points, click the points button -->
-          <div class="col-2 mx-2"><img class="button-img" src="../assets/money-bag.png" alt="">View Pts</div>
-
-          <div class="col-2 mx-2"><img class="button-img" src="../assets/incentive.png" alt="">Rewards</div>
-        </div>
-      </div>
-    </div>
+    <navbar :houseId="this.houseId">
+    </navbar>
     <div class="row">
       <!-- v-for user in users -->
       <div class="col-12" v-for="member in members">
@@ -63,15 +43,19 @@
 
 <script>
   // @ is an alias to /src
+  import Navbar from "@/components/Navbar.vue"
 
 
   export default {
     name: 'home',
-    props: ['houseId'],
-    mounted() {
+    props: ['houseId', 'admins'],
+    beforeCreated() {
       this.$store.dispatch('getActiveHouse', this.houseId);
       this.$store.dispatch('authenticate');
       this.$store.dispatch('getMembers', this.houseId)
+    },
+    mounted() {
+
     },
     computed: {
       house() {
@@ -82,15 +66,24 @@
       },
       members() {
         return this.$store.state.members
+      },
+      isAdmin() {
+        return this.$store.getters.isAdmin
       }
-      // users() {
-      //   return this.$store.state.users
-      // }
+
     },
+
+    // users() {
+    //   return this.$store.state.users
+    // }
+
     methods: {
       logout() {
         this.$store.dispatch('logout')
       }
+    },
+    components: {
+      Navbar
     }
   }
 </script>

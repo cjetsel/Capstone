@@ -18,16 +18,16 @@
     </div>
     <div class="row">
       <div class="col-12">Join Existing House</div>
-
+      <router-link :to="{name:'home'}"> <button class="btn btn-primary">homeview</button></router-link>
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
       <form>
         <input type="text" placeholder="Admin Email" class="form-control" v-model="existingHouse.email">
         <button class="btn btn-danger rounded-circle" type="submit"> <img class="button-img"
             src="../assets/pokeball.png" alt=""></button>
       </form>
-    </div>
+    </div> -->
   </div>
 </template>
 

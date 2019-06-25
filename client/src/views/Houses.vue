@@ -33,8 +33,7 @@
 
     },
     mounted() {
-      this.$store.dispatch('authenticate')
-      this.$store.dispatch('getHousesByMember', this.userId)
+      this.$store.dispatch('getHousesByMember', this.user._id)
     },
     computed: {
       house() {

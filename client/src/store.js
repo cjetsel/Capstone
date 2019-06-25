@@ -61,6 +61,7 @@ export default new Vuex.Store({
       auth.get('authenticate')
         .then(res => {
           commit('setUser', res.data)
+          dispatch('getHousesByMember', res.data._id)
           // router.push({ name: 'boards' })
         })
         .catch(res => {
@@ -166,5 +167,12 @@ export default new Vuex.Store({
 
   },
   // #endregion
+  getters: {
+    isAdmin(state) {
+      debugger
+      return state.house.admins ? state.house.admins.findIndex(a => a == state.user._id) > -1 : false
+    }
+  }
+
 })
 
