@@ -18,7 +18,10 @@
             </router-link>Chore
           </div>
           <!-- to view and edit points, click the points button -->
-          <div class="col-2 mx-2"><img class="button-img" src="../assets/money-bag.png" alt="">View Pts</div>
+          <div class="col-2 mx-2">
+            <router-link :to="{name: 'pointAssign', params: {houseId}}"><img class="button-img"
+                src="../assets/money-bag.png" alt=""></router-link>View Pts
+          </div>
 
           <div class="col-2 mx-2"><img class="button-img" src="../assets/incentive.png" alt="">Rewards</div>
         </div>
@@ -35,8 +38,9 @@
           </div>
           <!-- to add and assign chores, click the chore button! -->
           <div class="col-2 mx-2">
-            <img class="button-img" src="../assets/livingroom.png" alt="">
-            Chore
+            <router-link :to="{name: 'chore', params: {houseId}}"><img class="button-img" src="../assets/cleaner.png"
+                alt="">
+            </router-link>Chore
           </div>
           <!-- to view and edit points, click the points button -->
           <div class="col-2 mx-2"><img class="button-img" src="../assets/money-bag.png" alt="">View Pts</div>

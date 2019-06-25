@@ -94,6 +94,7 @@
       },
       loginUser() {
         this.$store.dispatch("login", this.creds)
+
       }
     }
   }

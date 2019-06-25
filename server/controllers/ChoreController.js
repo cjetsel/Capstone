@@ -2,7 +2,8 @@ import express from 'express'
 import ChoreService from '../services/ChoreService'
 import { Authorize } from '../middlewear/authorize'
 import HouseService from '../services/HouseService'
-
+import mongoose from 'mongoose'
+let ObjectId = mongoose.Types.ObjectId
 
 let _service = new ChoreService()
 let _repo = _service.repository
@@ -73,13 +74,12 @@ export default class ChoreController {
   async createChore(req, res, next) {
     // let house = await _repo.findById({ houseId: req.params.id })
     // if (house.admins.contains(req.session.uid) || house.superAdmin == req.session.uid)
-    let house = await _houseRepo.findOne({ houseId: req.body.houseId, admins: { $in: [req.session.uid] } })
-    if (house) {
-      try {
-        let data = await _repo.create(req.body)
-        return res.status(201).send(data)
-      } catch (error) { next(error) }
-    }
+    let house = await _houseRepo.findOne({ _id: req.body.houseId, admins: { $in: [req.session.uid] } })
+    try {
+      if (!house) { throw new Error("Invalid Access") }
+      let data = await _repo.create(req.body)
+      return res.status(201).send(data)
+    } catch (error) { next(error) }
   }
   async getChoreById(req, res, next) {
     try {

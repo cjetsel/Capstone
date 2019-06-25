@@ -7,6 +7,8 @@ import CreateHouse from './views/CreateHouse.vue'
 import Chore from './views/Chore.vue'
 import ChoreDetail from './views/ChoreDetail.vue'
 import Settings from './views/Settings.vue'
+import Rewards from './views/Rewards.vue'
+import PointAssign from './views/PointAssign.vue'
 
 
 Vue.use(Router)
@@ -52,6 +54,19 @@ export default new Router({
       name: "settings",
       component: Settings,
       props: true
-    }
+    },
+    {
+      path: ":houseId/rewards",
+      name: "rewards",
+      component: Rewards,
+      props: true
+    },
+    {
+      path: ":houseId/assignpoints",
+      name: "pointAssign",
+      component: PointAssign,
+      props: true
+    },
+
   ]
 })
