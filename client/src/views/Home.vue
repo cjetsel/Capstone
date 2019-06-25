@@ -50,14 +50,17 @@
     name: 'home',
     props: ['houseId', 'admins'],
     beforeCreated() {
+    },
+    mounted() {
       this.$store.dispatch('getActiveHouse', this.houseId);
       this.$store.dispatch('authenticate');
       this.$store.dispatch('getMembers', this.houseId)
-    },
-    mounted() {
 
     },
     computed: {
+      isAdmin() {
+        return this.$store.getters.isAdmin
+      },
       house() {
         return this.$store.state.house
       },
@@ -67,9 +70,6 @@
       members() {
         return this.$store.state.members
       },
-      isAdmin() {
-        return this.$store.getters.isAdmin
-      }
 
     },
 
