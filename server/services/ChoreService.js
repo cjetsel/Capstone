@@ -12,6 +12,7 @@ let _commentSchema = new Schema({
 let _schema = new Schema({
   name: { type: String, required: true },
   houseId: { type: ObjectId, ref: "House", required: true },
+  category: { type: String },
   description: { type: String },
   assignmentDate: { type: "String" },
   adminId: { type: ObjectId, ref: "User", },

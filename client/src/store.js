@@ -24,6 +24,7 @@ let api = Axios.create({
 export default new Vuex.Store({
   state: {
     user: {},
+    members: [],
     house: {},
     houses: [],
     chores: []
@@ -39,10 +40,11 @@ export default new Vuex.Store({
     setHouses(state, houses) {
       state.houses = houses
     },
-
-
     setChores(state, chores) {
       state.chores = chores
+    },
+    setMembers(state, members) {
+      state.members = members
     }
   },
   actions: {
@@ -69,7 +71,7 @@ export default new Vuex.Store({
       auth.post('login', creds)
         .then(res => {
           commit('setUser', res.data)
-          dispatch('getHouses')
+          dispatch('getHousesByMember', res.data._id)
         })
 
     },
@@ -84,7 +86,7 @@ export default new Vuex.Store({
     async addHouse({ commit, dispatch }, newHouse) {
       await api.post('/house', newHouse)
         .then(res => {
-          dispatch('getHouses')
+          dispatch('getHousesByMember', newHouse.superAdmin)
         })
     },
     async getActiveHouse({ commit, dispatch }, houseId) {
@@ -102,6 +104,15 @@ export default new Vuex.Store({
         })
     },
 
+    async getHousesByMember({ commit, dispatch }, userId) {
+      await api.get('/users/' + userId + '/house')
+        .then(res => {
+          commit('setHouses', res.data)
+          router.push({ name: 'houses' })
+        })
+    },
+    // #endregion
+    // #region --CHORES--
     async createChore({ commit, dispatch }, newChore) {
       await api.post('/chores', newChore)
         .then(res => {
@@ -131,9 +142,29 @@ export default new Vuex.Store({
         })
     },
 
-  }
+    //#endregion
+    // #region --Settings--
+    async addMember({ commit, dispatch }, data) {
+      await api.put('/house/' + data.houseId + '/user/', data)
+        .then(res => {
+          dispatch('getMembers', data.houseId)
+        })
+    },
 
+    async getMembers({ commit, dispatch }, houseId) {
+      await api.get('/house/' + houseId + '/users')
+        .then(res => {
+          commit('setMembers', res.data.members)
+        })
+    },
+    async deleteMember({ commit, dispatch }, payload) {
+      await api.put('/house/' + payload.house + '/user/' + payload._id)
+        .then(res => {
+          dispatch('getMembers', payload.house)
+        })
+    }
 
+  },
   // #endregion
 })
 

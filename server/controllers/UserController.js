@@ -14,9 +14,11 @@ export default class UserController {
     this.router = express.Router()
       .use(Authorize.authenticated)
       .get('/:id/chores', this.getChoresByMemberId)
+      .get('/:id/house', this.getHousesByMemberId)
       .get('/:id', this.getById)
       .post('', this.create)
       .put('/:id', this.edit)
+      .put('/:email', this.editByEmail)
       .delete('/:id', this.delete)
       .use(this.defaultRoute)
   }
@@ -45,9 +47,23 @@ export default class UserController {
       return res.send(data)
     } catch (error) { next(error) }
   }
+  async getHousesByMemberId(req, res, next) {
+    try {
+      let data = await _houseRepo.find({ members: { $in: [req.params.id] } })
+      return res.send(data)
+    } catch (error) { next(error) }
+  }
+
   async edit(req, res, next) {
     try {
       let data = await _repo.findOne({ _id: req.params.id })
+      await data.update(req.body, { new: true })
+      return res.send(data)
+    } catch (error) { next(error) }
+  }
+  async editByEmail(req, res, next) {
+    try {
+      let data = await _repo.findOne({ email: req.body.email })
       await data.update(req.body, { new: true })
       return res.send(data)
     } catch (error) { next(error) }

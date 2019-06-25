@@ -28,8 +28,13 @@
 
   export default {
     name: 'houses',
+    props: ['userId'],
     components: {
 
+    },
+    mounted() {
+      this.$store.dispatch('authenticate')
+      this.$store.dispatch('getHousesByMember', this.userId)
     },
     computed: {
       house() {

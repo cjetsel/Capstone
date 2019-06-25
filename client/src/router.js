@@ -6,6 +6,7 @@ import Login from './views/Login.vue'
 import CreateHouse from './views/CreateHouse.vue'
 import Chore from './views/Chore.vue'
 import ChoreDetail from './views/ChoreDetail.vue'
+import Settings from './views/Settings.vue'
 
 
 Vue.use(Router)
@@ -21,7 +22,8 @@ export default new Router({
     {
       path: '/houses',
       name: 'houses',
-      component: Houses
+      component: Houses,
+      props: true
     },
     {
       path: "/",
@@ -45,5 +47,11 @@ export default new Router({
       name: "choreDetail",
       component: ChoreDetail
     },
+    {
+      path: ":houseId/settings",
+      name: "settings",
+      component: Settings,
+      props: true
+    }
   ]
 })

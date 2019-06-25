@@ -3,6 +3,7 @@ import express from 'express'
 import { Authorize } from '../middlewear/authorize'
 import ChoreService from '../services/ChoreService';
 import UserService from '../services/UserService';
+import RewardService from '../services/RewardService';
 
 
 
@@ -14,6 +15,8 @@ let _choreRepo = _choreService.repository
 
 let _userRepo = new UserService().repository
 
+let _rewardRepo = new RewardService().repository
+
 export default class HouseController {
   constructor() {
     this.router = express.Router()
@@ -21,9 +24,11 @@ export default class HouseController {
       .get('', this.getAll)
       .get('/:id/users', this.getUsersByHouseId)
       .get('/:id/chores', this.getChoresByHouseId)
+      .get('/:id/reward', this.getRewardsByHouseId)
       .get('/:id', this.getById)
       .post('', this.create)
       .put('/:id/user', this.addUser)
+      .put('/:id/user/:memberId', this.removeMember)
       .put('/:id/admin', this.addAdmin)
       .put('/:id', this.edit)
       // .delete('/:id', this.delete)
@@ -130,7 +135,40 @@ export default class HouseController {
 
     }
   }
+  async removeMember(req, res, next) {
+    try {
+      let [house, user] = await Promise.all([
+        _repo.findOne({ _id: req.params.id, admins: { $in: [req.session.uid] } }), //find house with _id and where the session id is inside the admins array
+        _userRepo.findOne({ _id: req.params.memberId })
+      ])
+      if (house && user) {
+        let exists = house.members.find(aId => aId.equals(user._id))
+        if (exists) {
+          let userToRemove = house.members.indexOf(user._id)
+          let houseToRemove = user.households.indexOf(house._id)
+          user.households.splice(houseToRemove, 1)
+          house.members.splice(userToRemove, 1)
+          house.save(e => {
+            if (e) {
+              return next(e)
+            } else {
+              user.save(e => {
+                if (e) {
+                  return next(e)
+                }
+                return res.send({ house, user })
+              })
 
+            }
+          })
+        } else {
+          return res.status(400).send('already a member')
+        }
+      }
+    } catch (e) {
+
+    }
+  }
 
 
 
@@ -155,6 +193,15 @@ export default class HouseController {
       let chores = await _choreRepo.find({ houseId: house })
       // { houseId: req.body.houseId }
       return res.send(chores)
+    } catch (error) { next(error) }
+  }
+
+  async getRewardsByHouseId(req, res, next) {
+    try {
+      let house = req.params.id
+      let reward = await _rewardRepo.find({ houseId: house })
+      // { houseId: req.body.houseId }
+      return res.send(reward)
     } catch (error) { next(error) }
   }
 

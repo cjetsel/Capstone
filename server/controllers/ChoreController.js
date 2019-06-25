@@ -35,8 +35,8 @@ export default class ChoreController {
   async createChore(req, res, next) {
     // let house = await _repo.findById({ houseId: req.params.id })
     // if (house.admins.contains(req.session.uid) || house.superAdmin == req.session.uid)
-    let house = await _houseRepo.find({ houseId: req.body.houseId, admins: req.session.uid })
-    if (house) {
+    let house = await _houseRepo.find({ houseId: req.body.houseId, superAdmin: req.session.uid })
+    if (house.length !== 0) {
       try {
         let data = await _repo.create(req.body)
         return res.status(201).send(data)
@@ -58,6 +58,7 @@ export default class ChoreController {
         return res.send(chore)
       }
     } catch (error) {
+      next(error)
 
     }
   }

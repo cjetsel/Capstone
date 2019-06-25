@@ -1,5 +1,6 @@
 import mongoose from "mongoose"
 import bcrypt from 'bcryptjs'
+
 let Schema = mongoose.Schema
 let ObjectId = Schema.Types.ObjectId
 
@@ -13,7 +14,10 @@ let _schema = new Schema({
   email: { type: String, unique: true },
   hash: { type: String, required: true },
   households: [{ type: ObjectId, ref: "House" }],
-  admin: { type: Boolean, default: false }
+  admin: { type: Boolean, default: false },
+  points: { type: Number, default: 0 },
+  rewards: [{ type: ObjectId, ref: 'Reward' }]
+
 
 }, { timestamps: true, usePushEach: true })
 
