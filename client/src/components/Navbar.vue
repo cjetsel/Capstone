@@ -71,9 +71,7 @@
       isAdmin() {
         return this.$store.getters.isAdmin
       }
-
     }
-
   }
 
 </script>
