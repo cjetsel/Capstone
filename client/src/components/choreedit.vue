@@ -22,7 +22,7 @@
           <div class="col-3 assign mx-1 p-0 align-content-center">
             <div class="row justify-content-center h-12">
               <div class="col-12 p-0 align-self-center">
-                <small class="mt-1" @click="">Assign</small>
+                <small class="mt-1" @click="hideAssign=!hideAssign">Assign</small>
               </div>
             </div>
           </div>
@@ -51,6 +51,27 @@
 
       </div>
     </div>
+    <div class="row justify-content-center" v-if="!hideAssign">
+      <div class="col-11">
+        <form @submit.prevent="assignChore(chore._id); hideAssign=!hideAssign">
+          <div class="row justify-content-between my-1">
+            <select class="form-control" id="memberId" v-model="assignedChore.memberId">
+              <option v-for="member in members" v-bind:value="member._id">{{member.name}}
+              </option>
+            </select>
+          </div>
+          <div class="row my-1">
+            <div class="col">
+              <button class="btn btn-success" type="submit">Assign</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+
+
     <div class="row justify-content-center" v-if="!hideEdit">
       <div class="col-11">
         <form @submit.prevent="editChore(chore._id); hideEdit=!hideEdit">
@@ -92,19 +113,24 @@
     data() {
       return {
         hideEdit: true,
+        hideAssign: true,
 
         editedChore: {
           houseId: this.chore.houseId,
           name: "",
           pointValue: Number,
           icon: "",
-          description: "",
+          description: ""
         },
+        assignedChore: {
+          houseId: this.chore.houseId,
+          memberId: ''
+        }
 
       }
     },
     mounted() {
-      // this.$store.dispatch('getActiveHouse', this.houseId);
+      this.$store.dispatch('getActiveHouse', this.chore.houseId);
       // this.$store.dispatch('authenticate')
       // debugger
       // this.$store.dispatch('getChores', this.houseId)
@@ -119,13 +145,22 @@
         this.$store.dispatch('deleteChore', data)
       },
       editChore(choreId) {
-
+        debugger
         let data = {
           _id: choreId,
           editedChore: this.editedChore
         }
         this.$store.dispatch('editChore', data)
+      },
+      assignChore(choreId) {
+        debugger
+        let data = {
+          _id: choreId,
+          assignedChore: this.assignedChore
+        }
+        this.$store.dispatch('assignChore', data)
       }
+
 
     },
     computed: {
@@ -135,6 +170,12 @@
       isAdmin() {
         return this.$store.getters.isAdmin
       },
+      house() {
+        return this.$store.state.house
+      },
+      members() {
+        return this.$store.state.members
+      }
 
 
     }

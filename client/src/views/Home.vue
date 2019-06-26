@@ -31,12 +31,14 @@
             </div>
             <div class="row ">
               <div class="col">trophies</div>
-              <div class="col">{{member.rewards}}</div>
+              <div class="col" @click="filterChores(member._id)">View Chore List</div>
             </div>
           </div>
 
         </div>
+        <div class="row" v-for="chore in chores" :key="memberId">chore</div>
       </div>
+
     </div>
   </div>
 </template>
@@ -55,6 +57,7 @@
       this.$store.dispatch('getActiveHouse', this.houseId);
       this.$store.dispatch('authenticate');
       this.$store.dispatch('getMembers', this.houseId)
+      this.$store.dispatch('getChores', this.houseId)
 
     },
     computed: {
@@ -70,6 +73,12 @@
       members() {
         return this.$store.state.members
       },
+      chores() {
+        return this.$store.state.chores
+      },
+      activeChores() {
+        return this.$store.state.chores
+      }
 
     },
 
@@ -80,7 +89,12 @@
     methods: {
       logout() {
         this.$store.dispatch('logout')
+      },
+      filterChores(memberId) {
+        let chores = this.chores.filter(chore => chore.memberId == memberId)
+        this.$store.dispatch('setActiveChoreList', chores)
       }
+
     },
     components: {
       Navbar

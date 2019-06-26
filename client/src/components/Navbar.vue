@@ -7,7 +7,7 @@
           <!-- --this should be EDIT, it contains all edit of household info so ?? ask team mystic-- -->
           <div class="col-2 mx-2">
             <router-link :to="{name: 'settings', params: {houseId: this.houseId}}"><img class="button-img"
-                src="../assets/house.png" alt="">
+                src="../assets/settings.png" alt="">
             </router-link>
             Settings
           </div>

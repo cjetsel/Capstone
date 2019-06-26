@@ -27,7 +27,8 @@ export default new Vuex.Store({
     members: [],
     house: {},
     houses: [],
-    chores: []
+    chores: [],
+    activeMemberChoreList: []
 
   },
   mutations: {
@@ -45,6 +46,9 @@ export default new Vuex.Store({
     },
     setMembers(state, members) {
       state.members = members
+    },
+    setActiveMemberChoreList(state, chores) {
+      state.activeMemberChoreList = chores
     }
   },
   actions: {
@@ -143,6 +147,14 @@ export default new Vuex.Store({
           dispatch('getChores', data.editedChore.houseId)
         })
     },
+    async assignChore({ commit, dispatch }, data) {
+
+      let res = await api.put('/chores/' + data._id, data)
+        .then(res => {
+
+          dispatch('getChores', data.assignedChore.houseId)
+        })
+    },
 
     //#endregion
     // #region --Settings--
@@ -164,6 +176,9 @@ export default new Vuex.Store({
         .then(res => {
           dispatch('getMembers', payload.house)
         })
+    },
+    setActiveMemberChoreList({ commit }, payload) {
+      commit('setActiveChoreList', payload)
     }
 
   },
@@ -171,7 +186,9 @@ export default new Vuex.Store({
   getters: {
     isAdmin(state) {
       return state.house.admins ? state.house.admins.findIndex(a => a == state.user._id) > -1 : false
-    }
+    },
+
+
   }
 
 })
