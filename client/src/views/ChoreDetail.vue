@@ -8,7 +8,7 @@
           <input class="form-control" type="text" placeholder="Chore Name" v-model="newChore.name">
         </div>
         <div class="col-3">
-          <input class="form-control" type="number" placeholder="Points" v-model="newChore.value">
+          <input class="form-control" type="Number" placeholder="Points" v-model="newChore.value">
         </div>
       </div>
       <div class="row my-1">
