@@ -1,6 +1,7 @@
 <template>
   <div class="container-fluid">
-    <navbar />
+    <navbar :houseId="this.houseId">
+    </navbar>
     <div class="row">
       rewards
     </div>
@@ -32,6 +33,9 @@
     computed: {
 
 
+    },
+    components: {
+      Navbar
     }
   }
 </script>

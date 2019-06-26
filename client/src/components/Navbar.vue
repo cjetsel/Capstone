@@ -6,24 +6,29 @@
         <div class="row justify-content-center">
           <!-- --this should be EDIT, it contains all edit of household info so ?? ask team mystic-- -->
           <div class="col-2 mx-2">
-            <router-link :to="{name: 'settings', params: {houseId}}"><img class="button-img" src="../assets/house.png"
-                alt="">
+            <router-link :to="{name: 'settings', params: {houseId: this.houseId}}"><img class="button-img"
+                src="../assets/house.png" alt="">
             </router-link>
             Settings
           </div>
           <!-- to add and assign chores, click the chore button! -->
           <div class="col-2 mx-2" v-if="">
-            <router-link :to="{name: 'chore', params: {houseId}}"><img class="button-img" src="../assets/cleaner.png"
-                alt="">
+            <router-link :to="{name: 'chore', params: {houseId: this.houseId}}"><img class="button-img"
+                src="../assets/cleaner.png" alt="">
             </router-link>Chore
           </div>
           <!-- to view and edit points, click the points button -->
           <div class="col-2 mx-2">
-            <router-link :to="{name: 'pointAssign', params: {houseId}}"><img class="button-img"
+            <router-link :to="{name: 'pointAssign', params: {houseId: this.houseId}}"><img class="button-img"
                 src="../assets/money-bag.png" alt=""></router-link>View Pts
           </div>
 
-          <div class="col-2 mx-2"><img class="button-img" src="../assets/incentive.png" alt="">Rewards</div>
+          <div class="col-2 mx-2">
+            <router-link :to="{name: 'rewards', params: {houseId: this.houseId}}"><img class="button-img"
+                src="../assets/incentive.png" alt="">
+            </router-link>
+            Rewards
+          </div>
         </div>
       </div>
     </div>
