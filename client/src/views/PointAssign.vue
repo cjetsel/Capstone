@@ -28,7 +28,9 @@
               <div class="col">Points: {{chore.pointValue}}</div>
             </div>
             <div class="row ">
-              <div v-if="chore.adminComplete == false" class="col">Verify: Pending</div>
+              <div v-if="chore.adminComplete == false && chore.adminComplete == false" class="col"> Awaiting Completion
+              </div>
+              <div v-else-if="chore.adminComplete == false" class="col">Verify: Pending</div>
               <div v-else="chore.adminComplete == true" class="col">Verify: Complete</div>
               <div v-if="chore.memberComplete == false" class="col">Status: Incomplete</div>
               <div v-else="chore.memberComplete == true" class="col">Status: Done</div>
@@ -40,7 +42,7 @@
     </div>
   </div>
 </template>
-
+//
 <script>
   import Navbar from "@/components/Navbar.vue"
   export default {
