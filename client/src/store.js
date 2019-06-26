@@ -28,7 +28,8 @@ export default new Vuex.Store({
     house: {},
     houses: [],
     chores: [],
-    activeMemberChoreList: []
+    activeMemberChoreList: [],
+    rewards: []
 
   },
   mutations: {
@@ -49,6 +50,9 @@ export default new Vuex.Store({
     },
     setActiveMemberChoreList(state, chores) {
       state.activeMemberChoreList = chores
+    },
+    setRewards(state, rewards) {
+      state.rewards = rewards
     }
   },
   actions: {
@@ -179,10 +183,27 @@ export default new Vuex.Store({
     },
     setActiveMemberChoreList({ commit }, payload) {
       commit('setActiveChoreList', payload)
-    }
+    },
 
+
+    // #endregion
+    //#region -- Rewards --
+    async createReward({ commit, dispatch }, payload) {
+
+      await api.post('/reward', payload)
+        .then(res => {
+          dispatch('getRewards', payload.houseId)
+        })
+    },
+    async getRewards({ commit, dispatch }, houseId) {
+
+      let res = await api.get('/house/' + houseId + '/reward')
+        .then(res => {
+          commit('setRewards', res.data)
+        })
+    },
+    //#endregion
   },
-  // #endregion
   getters: {
     isAdmin(state) {
       return state.house.admins ? state.house.admins.findIndex(a => a == state.user._id) > -1 : false

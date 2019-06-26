@@ -198,8 +198,8 @@ export default class HouseController {
 
   async getRewardsByHouseId(req, res, next) {
     try {
-      let house = req.params.id
-      let reward = await _rewardRepo.find({ houseId: house })
+      // let house = req.params.id
+      let reward = await _rewardRepo.find({ houseId: req.params.id })
       // { houseId: req.body.houseId }
       return res.send(reward)
     } catch (error) { next(error) }

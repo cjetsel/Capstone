@@ -6,8 +6,8 @@ let _schema = new Schema({
   title: { type: String, required: true },
   description: { type: String },
   cost: { type: Number },
-  houseId: { type: String, required: true },
-  memberId: { type: String }
+  houseId: { type: ObjectId, ref: "House", required: true },
+  memberId: { type: ObjectId, ref: "User" }
 })
 
 

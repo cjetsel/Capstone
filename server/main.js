@@ -48,7 +48,7 @@ import RewardController from './controllers/RewardController'
 server.use("/api/house", new HouseController().router)
 server.use("/api/chores", new ChoreController().router)
 server.use("/api/users", new UserController().router)
-server.use('api/reward', new RewardController().router)
+server.use('/api/reward', new RewardController().router)
 
 
 

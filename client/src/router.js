@@ -50,19 +50,19 @@ export default new Router({
       component: ChoreDetail
     },
     {
-      path: ":houseId/settings",
+      path: "/:houseId/settings",
       name: "settings",
       component: Settings,
       props: true
     },
     {
-      path: ":houseId/rewards",
+      path: "/:houseId/rewards",
       name: "rewards",
       component: Rewards,
       props: true
     },
     {
-      path: ":houseId/assignpoints",
+      path: "/:houseId/assignpoints",
       name: "pointAssign",
       component: PointAssign,
       props: true

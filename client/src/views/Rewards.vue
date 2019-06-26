@@ -3,13 +3,31 @@
     <navbar :houseId="this.houseId">
     </navbar>
     <div class="row">
-      rewards
+      <form @submit.prevent="createReward">
+
+        <div class="col-12">
+          <input type="text" placeholder="Name" v-model="newReward.title">
+          <input type="Number" placeholder="Cost" v-model="newReward.cost">
+        </div>
+
+        <div class="col-12">
+          <textarea id="" cols="15" rows="3" placeholder="Description" v-model="newReward.description"></textarea>
+          <button type="submit">Create</button>
+        </div>
+
+      </form>
+
+    </div>
+
+    <!-- <div class="row">
+      list of all rewards
     </div>
     <div class="row">
-      <div class="col-2">point notify</div>
-      <div class="col-10">chore assigned to : name</div>
-    </div>
+      <div class="col-2">Notify Admin</div>
+      <div class="col-10">Claimed By: Name</div>
+    </div> -->
   </div>
+
 </template>
 
 <script>
@@ -19,19 +37,32 @@
     props: ["houseId"],
     data() {
       return {
-
+        newReward: {
+          title: "",
+          description: "",
+          cost: Number,
+          houseId: this.houseId
+        }
       }
     },
     mounted() {
       this.$store.dispatch('getActiveHouse', this.houseId);
       this.$store.dispatch('authenticate')
+      this.$store.dispatch('getRewards', this.houseId)
     },
     methods: {
+      createReward() {
+
+        this.$store.dispatch('createReward', this.newReward)
+      }
+
 
 
     },
     computed: {
-
+      rewards() {
+        return this.$store.state.rewards
+      }
 
     },
     components: {
