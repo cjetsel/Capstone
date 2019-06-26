@@ -27,8 +27,8 @@ export default new Vuex.Store({
     members: [],
     house: {},
     houses: [],
-    chores: [],
-    activeChoreList: []
+    chores: []
+
 
   },
   mutations: {
@@ -46,9 +46,6 @@ export default new Vuex.Store({
     },
     setMembers(state, members) {
       state.members = members
-    },
-    setActiveChoreList(state, chores) {
-      state.activeChoreList = chores
     }
   },
   actions: {
@@ -165,10 +162,8 @@ export default new Vuex.Store({
         .then(res => {
           dispatch('getMembers', payload.house)
         })
-    },
-    setActiveChoreList({ commit }, payload) {
-      commit('setActiveChoreList', payload)
     }
+
 
   },
   // #endregion
