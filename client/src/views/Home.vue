@@ -36,7 +36,7 @@
           </div>
 
         </div>
-        <div class="row" v-for="chore in chores" :key="memberId">chore</div>
+        <div class="row" v-for="chore in activeChores" :key="chore">{{chore.name}}</div>
       </div>
 
     </div>
@@ -77,7 +77,7 @@
         return this.$store.state.chores
       },
       activeChores() {
-        return this.$store.state.chores
+        return this.$store.state.activeChoreList
       }
 
     },
@@ -91,8 +91,21 @@
         this.$store.dispatch('logout')
       },
       filterChores(memberId) {
-        let chores = this.chores.filter(chore => chore.memberId == memberId)
-        this.$store.dispatch('setActiveChoreList', chores)
+        let arr = this.chores
+        let activeChores = []
+        for (let i = 0; i < arr.length; i++) {
+          let index = arr[i]
+          if (index.memberId == memberId) {
+            activeChores.push(index)
+          }
+        } debugger
+        this.$store.dispatch('setActiveChoreList', activeChores)
+
+
+        // let chores = this.chores.forEach(i => {
+        //   i.filter(chore => chores.memberId == memberId)
+        // })
+        // this.$store.dispatch('setActiveChoreList', chores)
       }
 
     },

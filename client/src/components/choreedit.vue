@@ -156,9 +156,10 @@
         debugger
         let data = {
           _id: choreId,
-          assignedChore: this.assignedChore
+          editedChore: this.assignedChore,
+          memberId: this.assignedChore.memberId
         }
-        this.$store.dispatch('assignChore', data)
+        this.$store.dispatch('editChore', data)
       }
 
 
