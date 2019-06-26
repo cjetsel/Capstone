@@ -28,8 +28,12 @@ export default new Vuex.Store({
     house: {},
     houses: [],
     chores: [],
+<<<<<<< HEAD
     activeMemberChoreList: [],
     rewards: []
+=======
+    activeChoreList: []
+>>>>>>> 0b3f2ee0a4e815aa4f856ee0b30f5c8844fe09b9
 
   },
   mutations: {
@@ -48,11 +52,16 @@ export default new Vuex.Store({
     setMembers(state, members) {
       state.members = members
     },
+<<<<<<< HEAD
     setActiveMemberChoreList(state, chores) {
       state.activeMemberChoreList = chores
     },
     setRewards(state, rewards) {
       state.rewards = rewards
+=======
+    setActiveChoreList(state, chores) {
+      state.activeChoreList = chores
+>>>>>>> 0b3f2ee0a4e815aa4f856ee0b30f5c8844fe09b9
     }
   },
   actions: {
@@ -144,22 +153,11 @@ export default new Vuex.Store({
         })
     },
     async editChore({ commit, dispatch }, data) {
-
       let res = await api.put('/chores/' + data._id, data)
         .then(res => {
-
           dispatch('getChores', data.editedChore.houseId)
         })
     },
-    async assignChore({ commit, dispatch }, data) {
-
-      let res = await api.put('/chores/' + data._id, data)
-        .then(res => {
-
-          dispatch('getChores', data.assignedChore.houseId)
-        })
-    },
-
     //#endregion
     // #region --Settings--
     async addMember({ commit, dispatch }, data) {
@@ -181,7 +179,7 @@ export default new Vuex.Store({
           dispatch('getMembers', payload.house)
         })
     },
-    setActiveMemberChoreList({ commit }, payload) {
+    setActiveChoreList({ commit }, payload) {
       commit('setActiveChoreList', payload)
     },
 
