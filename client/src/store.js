@@ -27,19 +27,8 @@ export default new Vuex.Store({
     members: [],
     house: {},
     houses: [],
-<<<<<<< HEAD
     chores: [],
-<<<<<<< HEAD
-    activeMemberChoreList: [],
     rewards: []
-=======
-    activeChoreList: []
->>>>>>> 0b3f2ee0a4e815aa4f856ee0b30f5c8844fe09b9
-=======
-    chores: []
-
->>>>>>> 86aaac2ec869d6a9d15b88980dc2b1a8476cde96
-
   },
   mutations: {
     setUser(state, user) {
@@ -56,20 +45,10 @@ export default new Vuex.Store({
     },
     setMembers(state, members) {
       state.members = members
-<<<<<<< HEAD
-    },
-<<<<<<< HEAD
-    setActiveMemberChoreList(state, chores) {
-      state.activeMemberChoreList = chores
+
     },
     setRewards(state, rewards) {
       state.rewards = rewards
-=======
-    setActiveChoreList(state, chores) {
-      state.activeChoreList = chores
->>>>>>> 0b3f2ee0a4e815aa4f856ee0b30f5c8844fe09b9
-=======
->>>>>>> 86aaac2ec869d6a9d15b88980dc2b1a8476cde96
     }
   },
   actions: {
@@ -106,6 +85,12 @@ export default new Vuex.Store({
       auth.delete('logout')
         .then(res => {
           router.push({ name: 'login' })
+        })
+    },
+    async editUser({ commit, dispatch }, data) {
+      await api.put(/users/ + data._id, data)
+        .then(res => {
+          dispatch('authenticate')
         })
     },
     //#endregion
@@ -186,12 +171,7 @@ export default new Vuex.Store({
         .then(res => {
           dispatch('getMembers', payload.house)
         })
-<<<<<<< HEAD
     },
-    setActiveChoreList({ commit }, payload) {
-      commit('setActiveChoreList', payload)
-    },
-
 
     // #endregion
     //#region -- Rewards --
@@ -209,12 +189,20 @@ export default new Vuex.Store({
           commit('setRewards', res.data)
         })
     },
+    async deleteReward({ commit, dispatch }, data) {
+      await api.delete('/reward/' + data._id)
+        .then(res => {
+          dispatch('getRewards', data.houseId)
+        })
+    },
+    async editReward({ commit, dispatch }, data) {
+      let res = await api.put('/reward/' + data._id, data)
+        .then(res => {
+          dispatch('getRewards', data.editedReward.houseId)
+        })
+    },
+
     //#endregion
-=======
-    }
-
-
->>>>>>> 86aaac2ec869d6a9d15b88980dc2b1a8476cde96
   },
   getters: {
     isAdmin(state) {

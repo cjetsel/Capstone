@@ -2,36 +2,42 @@
   <div class="container-fluid">
     <navbar :houseId="this.houseId">
     </navbar>
-    <div class="row">
-      <form @submit.prevent="createReward">
+    <div v-if="isAdmin">
+      <div class="row">
+        <form @submit.prevent="createReward">
 
-        <div class="col-12">
-          <input type="text" placeholder="Name" v-model="newReward.title">
-          <input type="Number" placeholder="Cost" v-model="newReward.cost">
-        </div>
+          <div class="col-12">
+            <input type="text" placeholder="Name" v-model="newReward.title">
+            <input type="Number" placeholder="Cost" v-model="newReward.cost">
+          </div>
 
-        <div class="col-12">
-          <textarea id="" cols="15" rows="3" placeholder="Description" v-model="newReward.description"></textarea>
-          <button type="submit">Create</button>
-        </div>
+          <div class="col-12">
+            <textarea id="" cols="15" rows="3" placeholder="Description" v-model="newReward.description"></textarea>
+            <button type="submit">Create</button>
+          </div>
 
-      </form>
+        </form>
 
+
+
+      </div>
+
+      <div class="row">
+        <reward-edit v-for="reward in rewards" v-bind:reward="reward">
+
+        </reward-edit>
+      </div>
     </div>
-
-    <!-- <div class="row">
-      list of all rewards
+    <div v-else>
+      hello member
     </div>
-    <div class="row">
-      <div class="col-2">Notify Admin</div>
-      <div class="col-10">Claimed By: Name</div>
-    </div> -->
   </div>
 
 </template>
 
 <script>
   import Navbar from "@/components/Navbar.vue"
+  import RewardEdit from "@/components/RewardEdit.vue"
   export default {
     name: "Rewards",
     props: ["houseId"],
@@ -62,11 +68,15 @@
     computed: {
       rewards() {
         return this.$store.state.rewards
+      },
+      isAdmin() {
+        return this.$store.getters.isAdmin
       }
 
     },
     components: {
-      Navbar
+      Navbar,
+      RewardEdit
     }
   }
 </script>

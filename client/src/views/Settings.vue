@@ -2,6 +2,8 @@
 
   <!-- Pseudo code for walkthough -->
   <div class="container-fluid">
+    <navbar :houseId="this.houseId">
+    </navbar>
     <div class="row mt-5 justify-content-center">
       <div class="col-1">
         <router-link :to="{name: 'home', params: {houseId}}"><img class="back-img" src="../assets/backarrow.png">
@@ -13,7 +15,7 @@
     </div>
     <div class="row mb-2 justify-content-center">
       <div class="col-12">
-        <div class="row">
+        <div class="row" v-if="isAdmin">
           <div class="col-12">
             <h5>House Name: {{house.name}}</h5>
           </div>
@@ -21,14 +23,18 @@
         <div class="row justify-content-center">
           <div class="col-12">
             <div class="row justify-content-center">
-              Change Avatar
+              Name: {{user.name}}
             </div>
             <div class="row justify-content-center">
-              Name: {{user.name}}
+              <form @submit.prevent="editUser(user._id)">
+                <input type="text" placeholder="New Name" v-model="editMember.name">
+                <input type="text" placeholder="icon" v-model="editMember.icon">
+                <button type="submit">Update</button>
+              </form>
             </div>
           </div>
         </div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" v-if="isAdmin">
           <div class="col-12">
             <div class="row justify-content-center">
               <h5>Add New User to House:</h5>
@@ -43,7 +49,7 @@
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row" v-if="isAdmin">
       <!-- v-for user in users -->
       <div class="col-12" v-for="member in members">
         <div class="row bg-primary my-1">
@@ -90,7 +96,7 @@
 
 <script>
   // @ is an alias to /src
-
+  import Navbar from '@/components/Navbar.vue'
 
   export default {
     name: 'settings',
@@ -101,9 +107,13 @@
           email: "",
           houseId: this.houseId
         },
+        editMember: {
+          name: '',
+          icon: ''
+        },
         promote: {
 
-        }
+        },
       }
     },
     mounted() {
@@ -120,6 +130,9 @@
       },
       members() {
         return this.$store.state.members
+      },
+      isAdmin() {
+        return this.$store.getters.isAdmin
       }
     },
     methods: {
@@ -128,7 +141,19 @@
       },
       deleteMember(memberId) {
         this.$store.dispatch('deleteMember', { _id: memberId, house: this.houseId })
+      },
+      editUser(memberId) {
+
+        let data = {
+          _id: memberId,
+          name: this.editMember.name,
+          icon: this.editMember.icon
+        }
+        this.$store.dispatch('editUser', data)
       }
+    },
+    components: {
+      Navbar
     }
   }
 </script>

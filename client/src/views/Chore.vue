@@ -1,5 +1,7 @@
 <template>
   <div class="container-fluid">
+    <navbar :houseId="this.houseId">
+    </navbar>
     <div class="row mt-3">
       <div class="col-1">
         <router-link :to="{name: 'home', params: {houseId}}"><img class="back-img" src="../assets/backarrow.png">
@@ -11,14 +13,14 @@
       </div>
     </div>
 
-    <div class="row justify-content-center">
+    <!-- <div class="row justify-content-center">
       <div class="col my-1"><img class="chore-img" src="../assets/livingroom.png"><small>Living Room</small></div>
       <div class="col my-1"><img class="chore-img" src="../assets/bedroom.png"><small>Bedroom</small></div>
       <div class="col my-1"><img class="chore-img" src="../assets/kitchen.png"><small>Kitchen</small></div>
       <div class="col my-1"><img class="chore-img" src="../assets/bathroom.png"><small>Bathroom</small></div>
       <div class="col my-1"><img class="chore-img" src="../assets/yard.png"><small>Yard</small></div>
       <div class="col my-1"><img class="chore-img" src="../assets/misc.png"><small>Misc.</small></div>
-    </div>
+    </div> -->
     <div class="row justify-content-center mt-3">
       <button v-if="!hideForm" class="btn btn-primary col-11" @click="hideForm = !hideForm">Hide Chore Creator</button>
       <button v-else class="btn btn-primary col-11" @click="hideForm = !hideForm">Add Chore!</button>
@@ -67,6 +69,7 @@
 
 <script>
   import Choreedit from "@/components/choreedit.vue"
+  import Navbar from "@/components/Navbar.vue"
   export default {
     name: "Chore",
     props: ["houseId"],
@@ -106,7 +109,8 @@
 
     },
     components: {
-      Choreedit
+      Choreedit,
+      Navbar
     }
   }
 </script>
