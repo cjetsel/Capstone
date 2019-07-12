@@ -27,18 +27,11 @@ export default new Vuex.Store({
     members: [],
     house: {},
     houses: [],
-<<<<<<< HEAD
     chores: [],
-<<<<<<< HEAD
     activeMemberChoreList: [],
     rewards: []
-=======
-    activeChoreList: []
->>>>>>> 0b3f2ee0a4e815aa4f856ee0b30f5c8844fe09b9
-=======
-    chores: []
 
->>>>>>> 86aaac2ec869d6a9d15b88980dc2b1a8476cde96
+
 
   },
   mutations: {
@@ -56,21 +49,18 @@ export default new Vuex.Store({
     },
     setMembers(state, members) {
       state.members = members
-<<<<<<< HEAD
+
     },
-<<<<<<< HEAD
+
     setActiveMemberChoreList(state, chores) {
       state.activeMemberChoreList = chores
     },
     setRewards(state, rewards) {
       state.rewards = rewards
-=======
-    setActiveChoreList(state, chores) {
-      state.activeChoreList = chores
->>>>>>> 0b3f2ee0a4e815aa4f856ee0b30f5c8844fe09b9
-=======
->>>>>>> 86aaac2ec869d6a9d15b88980dc2b1a8476cde96
-    }
+    },
+
+
+
   },
   actions: {
 
@@ -186,11 +176,9 @@ export default new Vuex.Store({
         .then(res => {
           dispatch('getMembers', payload.house)
         })
-<<<<<<< HEAD
+
     },
-    setActiveChoreList({ commit }, payload) {
-      commit('setActiveChoreList', payload)
-    },
+
 
 
     // #endregion
@@ -210,11 +198,11 @@ export default new Vuex.Store({
         })
     },
     //#endregion
-=======
-    }
 
 
->>>>>>> 86aaac2ec869d6a9d15b88980dc2b1a8476cde96
+
+
+
   },
   getters: {
     isAdmin(state) {
