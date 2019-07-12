@@ -3,21 +3,22 @@
   <!-- Pseudo code for walkthough -->
 
   <div class="container-fluid">
+    <navbar :houseId="this.houseId" class="mt-3">
+    </navbar>
     <div class="row mt-5">
-      <div class="col-1">
+
+      <!-- <div class="col-1">
         <router-link :to="{name: 'houses', params: {userId: user._id}}"><img class="back-img"
             src="../assets/backarrow.png">
         </router-link><small>Houses</small>
-      </div>
-      <div class="col-1">
+      </div> -->
+      <!-- <div class="col-1">
         <button class="btn btn-primary" @click="logout">logout</button>
-      </div>
+      </div> -->
       <div class="col-11">
         <h3>Welcome to House {{house.name}}, {{user.name}}!</h3>
       </div>
     </div>
-    <navbar :houseId="this.houseId">
-    </navbar>
     <div class="row">
       <member v-bind:member="member" v-for="member in members" :key="member._id" />
     </div>
