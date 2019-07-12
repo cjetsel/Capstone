@@ -17,6 +17,8 @@ export default class RewardController {
       .post('', this.createReward)
       .delete('/:id', this.deleteReward)
       .put('/:id', this.editReward)
+      .put('/:id/claim', this.claimReward)
+      .get('/:id/claimed', this.getRewardsByUserId)
       .use(this.defaultRoute)
   }
   defaultRoute(req, res, next) {
@@ -66,4 +68,20 @@ export default class RewardController {
       next(error)
     }
   }
+  async claimReward(req, res, next) {
+    try {
+      let reward = await _rewardRepo.findByIdAndUpdate(req.params.id, { userId: req.session.uid }, { new: true })
+      return res.send(reward)
+
+    } catch (error) {
+      next(error)
+    }
+  }
+  async getRewardsByUserId(req, res, next) {
+    try {
+      let reward = await _rewardRepo.find({ userId: req.session.uid })
+      return res.send(reward)
+    } catch (error) { next(error) }
+  }
+
 }

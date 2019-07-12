@@ -68,7 +68,11 @@
       </div>
       <div>
         Claimed Rewards
-        <div v-for="reward in rewards"></div>
+        <div v-for="claimedReward in claimedRewards">
+          <div>{{reward.title}}</div>
+
+
+        </div>
       </div>
 
 
@@ -96,6 +100,7 @@
       this.$store.dispatch('getActiveHouse', this.houseId);
       this.$store.dispatch('authenticate')
       this.$store.dispatch('getRewards', this.houseId)
+      // this.$store.dispatch('getRewardsByUserId')
     },
     methods: {
       createReward() {
@@ -103,10 +108,9 @@
         this.$store.dispatch('createReward', this.newReward)
       },
       claimReward(id) {
-
-
         this.$store.dispatch('claimReward', id)
-      }
+      },
+
 
 
 
@@ -117,6 +121,9 @@
       },
       isAdmin() {
         return this.$store.getters.isAdmin
+      },
+      claimedRewards() {
+        return this.$store.state.claimedRewards
       }
 
     },
