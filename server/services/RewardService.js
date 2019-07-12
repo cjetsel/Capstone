@@ -7,7 +7,7 @@ let _schema = new Schema({
   description: { type: String },
   cost: { type: Number },
   houseId: { type: ObjectId, ref: "House", required: true },
-  memberId: { type: ObjectId, ref: "User" }
+  userId: { type: ObjectId, ref: "User" }
 })
 
 
