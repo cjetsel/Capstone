@@ -28,11 +28,7 @@ export default new Vuex.Store({
     house: {},
     houses: [],
     chores: [],
-    activeMemberChoreList: [],
     rewards: []
-
-
-
   },
   mutations: {
     setUser(state, user) {
@@ -51,16 +47,9 @@ export default new Vuex.Store({
       state.members = members
 
     },
-
-    setActiveMemberChoreList(state, chores) {
-      state.activeMemberChoreList = chores
-    },
     setRewards(state, rewards) {
       state.rewards = rewards
-    },
-
-
-
+    }
   },
   actions: {
 
@@ -96,6 +85,12 @@ export default new Vuex.Store({
       auth.delete('logout')
         .then(res => {
           router.push({ name: 'login' })
+        })
+    },
+    async editUser({ commit, dispatch }, data) {
+      await api.put(/users/ + data._id, data)
+        .then(res => {
+          dispatch('authenticate')
         })
     },
     //#endregion
@@ -176,11 +171,16 @@ export default new Vuex.Store({
         .then(res => {
           dispatch('getMembers', payload.house)
         })
+<<<<<<< HEAD
 
     },
 
 
 
+=======
+    },
+
+>>>>>>> 62e8a2642d725e0e6d4a889d663c586840444279
     // #endregion
     //#region -- Rewards --
     async createReward({ commit, dispatch }, payload) {
@@ -197,12 +197,29 @@ export default new Vuex.Store({
           commit('setRewards', res.data)
         })
     },
+<<<<<<< HEAD
     //#endregion
 
 
 
 
 
+=======
+    async deleteReward({ commit, dispatch }, data) {
+      await api.delete('/reward/' + data._id)
+        .then(res => {
+          dispatch('getRewards', data.houseId)
+        })
+    },
+    async editReward({ commit, dispatch }, data) {
+      let res = await api.put('/reward/' + data._id, data)
+        .then(res => {
+          dispatch('getRewards', data.editedReward.houseId)
+        })
+    },
+
+    //#endregion
+>>>>>>> 62e8a2642d725e0e6d4a889d663c586840444279
   },
   getters: {
     isAdmin(state) {
