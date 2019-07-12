@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <navbar :houseId="this.houseId">
+    <navbar :houseId="this.houseId" class="mt-3">
     </navbar>
     <div v-if="isAdmin">
       <div class="row">
