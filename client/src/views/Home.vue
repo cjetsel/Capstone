@@ -5,18 +5,11 @@
   <div class="container-fluid">
     <navbar :houseId="this.houseId" class="mt-3">
     </navbar>
-    <div class="row mt-5">
+    <div class="row mt-2">
 
-      <!-- <div class="col-1">
-        <router-link :to="{name: 'houses', params: {userId: user._id}}"><img class="back-img"
-            src="../assets/backarrow.png">
-        </router-link><small>Houses</small>
-      </div> -->
-      <!-- <div class="col-1">
-        <button class="btn btn-primary" @click="logout">logout</button>
-      </div> -->
-      <div class="col-11">
-        <h3>Welcome to House {{house.name}}, {{user.name}}!</h3>
+      <div class="col-12">
+        <h3>Household : {{house.name}}</h3>
+        <h5>Members:</h5>
       </div>
     </div>
     <div v-if="isAdmin" class="row">

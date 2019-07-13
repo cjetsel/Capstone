@@ -193,7 +193,10 @@ export default new Vuex.Store({
           commit('setRewards', res.data)
 
         })
+
     },
+
+
     async deleteReward({ commit, dispatch }, data) {
       await api.delete('/reward/' + data._id)
         .then(res => {
