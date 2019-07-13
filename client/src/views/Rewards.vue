@@ -29,10 +29,55 @@
       </div>
     </div>
     <div v-else>
-      hello member
+      Claim Rewards!
+      <div>Available</div>
+      <div v-for="reward in rewards" class="col-11 btn btn-secondary">
+        <div class="row h-12">
+
+          <div class="col-2 points mx-1 p-0 align-content-center">
+            <div class="row justify-content-center h-12">
+              <div class="col-12 p-0 align-self-center">
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-8 align-self-center">{{reward.title}}</div>
+        </div>
+        <div class="row">
+          <div class="col-2">
+            <small class="mt-1">{{reward.cost}}</small>
+          </div>
+          <div class="col-5"></div>
+          <div class="col-5">
+            <div class="row h-12 justify-content-center">
+              <div class="col-3 mx-1 p-0 align-content-center">
+                <div class="row justify-content-center h-12">
+                  <div class="col-12 p-0 align-self-center">
+                    <button @click="claimReward(reward._id)">Claim</button>
+
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div>
+        Claimed Rewards
+        <div v-for="claimedReward in claimedRewards">
+          <div>{{reward.title}}</div>
+
+
+        </div>
+      </div>
+
+
     </div>
   </div>
-
 </template>
 
 <script>
@@ -55,12 +100,17 @@
       this.$store.dispatch('getActiveHouse', this.houseId);
       this.$store.dispatch('authenticate')
       this.$store.dispatch('getRewards', this.houseId)
+      // this.$store.dispatch('getRewardsByUserId')
     },
     methods: {
       createReward() {
 
         this.$store.dispatch('createReward', this.newReward)
-      }
+      },
+      claimReward(id) {
+        this.$store.dispatch('claimReward', id)
+      },
+
 
 
 
@@ -71,6 +121,9 @@
       },
       isAdmin() {
         return this.$store.getters.isAdmin
+      },
+      claimedRewards() {
+        return this.$store.state.claimedRewards
       }
 
     },

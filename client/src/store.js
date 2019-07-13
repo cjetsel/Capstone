@@ -28,7 +28,8 @@ export default new Vuex.Store({
     house: {},
     houses: [],
     chores: [],
-    rewards: []
+    rewards: [],
+    claimedRewards: [],
   },
   mutations: {
     setUser(state, user) {
@@ -49,6 +50,9 @@ export default new Vuex.Store({
     },
     setRewards(state, rewards) {
       state.rewards = rewards
+    },
+    setClaimedRewards(state, claimedRewards) {
+      state.claimedRewards = claimedRewards
     }
   },
   actions: {
@@ -203,7 +207,21 @@ export default new Vuex.Store({
         .then(res => {
           dispatch('getRewards', data.editedReward.houseId)
         })
+    },
+    async claimReward({ commit, dispatch }, id) {
+      let res = await api.put('/reward/' + id + '/claim')
+        .then(res => {
+          dispatch('getRewardsByUserId', id)
+        })
+    },
+    async getRewardsByUserId({ commit, dispatch }, id) {
+      let res = await api.get('/reward/' + id + '/claimed')
+        .then(res => {
+          commit('setClaimedRewards', res.data)
+        })
     }
+
+    //#endregion
   },
   getters: {
     isAdmin(state) {
