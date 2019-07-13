@@ -191,6 +191,7 @@ export default new Vuex.Store({
       let res = await api.get('/house/' + houseId + '/reward')
         .then(res => {
           commit('setRewards', res.data)
+
         })
 
     },
@@ -211,11 +212,11 @@ export default new Vuex.Store({
     async claimReward({ commit, dispatch }, id) {
       let res = await api.put('/reward/' + id + '/claim')
         .then(res => {
-          dispatch('getRewardsByUserId', id)
+          dispatch('getRewardsByUserId', res.data)
         })
     },
     async getRewardsByUserId({ commit, dispatch }, id) {
-      let res = await api.get('/reward/' + id + '/claimed')
+      let res = await api.get('/reward/' + id._id + '/claimed')
         .then(res => {
           commit('setClaimedRewards', res.data)
         })
