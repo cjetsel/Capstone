@@ -8,16 +8,21 @@
     <div class="row mt-2">
 
       <div class="col-12">
-        <h3>Household : {{house.name}}</h3>
-        <h5>Members:</h5>
+        <div v-if="isAdmin" class="row">
+          <h3>Household : {{house.name}}</h3>
+          <h5>Members:</h5>
+          <member v-bind:member="member" v-for="member in members" :key="member._id" />
+        </div>
+        <div v-else>
+          <h5>Your Chores:</h5>
+          <member-chores :houseId="houseId" :userId="this.user._id">
+
+
+          </member-chores>
+
+
+        </div>
       </div>
-    </div>
-    <div v-if="isAdmin" class="row">
-      <member v-bind:member="member" v-for="member in members" :key="member._id" />
-    </div>
-    <div v-else>
-
-
     </div>
   </div>
 </template>
@@ -26,6 +31,7 @@
   // @ is an alias to /src
   import Navbar from "@/components/Navbar.vue"
   import Member from "@/components/member.vue"
+  import MemberChores from "@/components/MemberChores.vue"
 
   export default {
     name: 'home',
@@ -62,7 +68,8 @@
     },
     components: {
       Navbar,
-      Member
+      Member,
+      MemberChores
     }
   }
 </script>

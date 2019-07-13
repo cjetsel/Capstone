@@ -100,6 +100,7 @@
       this.$store.dispatch('getActiveHouse', this.houseId);
       this.$store.dispatch('authenticate')
       this.$store.dispatch('getRewards', this.houseId)
+      this.$store.dispatch('getRewardsByUserId', this.user._id)
 
     },
     methods: {
@@ -121,6 +122,9 @@
       },
       isAdmin() {
         return this.$store.getters.isAdmin
+      },
+      user() {
+        return this.$store.state.user
       },
       claimedRewards() {
         return this.$store.state.claimedRewards

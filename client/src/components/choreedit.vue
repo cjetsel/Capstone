@@ -153,7 +153,7 @@
         this.$store.dispatch('deleteChore', data)
       },
       editChore(choreId) {
-        debugger
+
         let data = {
           _id: choreId,
           editedChore: this.editedChore
@@ -161,7 +161,7 @@
         this.$store.dispatch('editChore', data)
       },
       assignChore(choreId) {
-        debugger
+
         let data = {
           _id: choreId,
           editedChore: this.assignedChore,
