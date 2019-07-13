@@ -19,8 +19,12 @@
         <h3>Welcome to House {{house.name}}, {{user.name}}!</h3>
       </div>
     </div>
-    <div class="row">
+    <div v-if="isAdmin" class="row">
       <member v-bind:member="member" v-for="member in members" :key="member._id" />
+    </div>
+    <div v-else>
+
+
     </div>
   </div>
 </template>
