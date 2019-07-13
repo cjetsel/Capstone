@@ -44,7 +44,6 @@
       this.$store.dispatch('authenticate');
       this.$store.dispatch('getMembers', this.houseId)
       this.$store.dispatch('getChores', this.houseId)
-
     },
     computed: {
       isAdmin() {
