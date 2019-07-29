@@ -81,27 +81,27 @@ export default class AuthController {
       res.status(500).send(err)
     }
   }
-
-  // async authenticateAdmin(req, res, next) {
-  //   try {
-  //     let user = await _repo.findOne({ _id: req.session.uid })
-  //     if (!user) {
-  //       return res.status(401).send({
-  //         error: 'Please login to continue'
-  //       })
-  //     } else if (!user.admin) {
-  //       return res.status(401).send({
-  //         error: 'Admin privileges required'
-  //       })
-  //     }
-  //     delete user._doc.hash
-  //     res.send(user)
-  //   }
-  //   catch (err) {
-  //     console.error(err)
-  //     res.status(500).send(err)
-  //   }
-  // }
+  // What this?
+  async authenticateAdmin(req, res, next) {
+    try {
+      let user = await _repo.findOne({ _id: req.session.uid })
+      if (!user) {
+        return res.status(401).send({
+          error: 'Please login to continue'
+        })
+      } else if (!user.admin) {
+        return res.status(401).send({
+          error: 'Admin privileges required'
+        })
+      }
+      delete user._doc.hash
+      res.send(user)
+    }
+    catch (err) {
+      console.error(err)
+      res.status(500).send(err)
+    }
+  }
 
   async logout(req, res, next) {
     try {

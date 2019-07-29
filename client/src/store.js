@@ -175,16 +175,8 @@ export default new Vuex.Store({
         .then(res => {
           dispatch('getMembers', payload.house)
         })
-<<<<<<< HEAD
-
     },
 
-
-
-=======
-    },
-
->>>>>>> 5c0165623290d1062b8d48b5e3bf9c93082791df
     // #endregion
     //#region -- Rewards --
     async createReward({ commit, dispatch }, payload) {
@@ -199,17 +191,12 @@ export default new Vuex.Store({
       let res = await api.get('/house/' + houseId + '/reward')
         .then(res => {
           commit('setRewards', res.data)
-<<<<<<< HEAD
-        })
-    },
-=======
 
         })
 
     },
 
 
->>>>>>> 5c0165623290d1062b8d48b5e3bf9c93082791df
     async deleteReward({ commit, dispatch }, data) {
       await api.delete('/reward/' + data._id)
         .then(res => {
