@@ -28,7 +28,8 @@ export default new Vuex.Store({
     house: {},
     houses: [],
     chores: [],
-    rewards: []
+    rewards: [],
+    claimedRewards: [],
   },
   mutations: {
     setUser(state, user) {
@@ -49,6 +50,9 @@ export default new Vuex.Store({
     },
     setRewards(state, rewards) {
       state.rewards = rewards
+    },
+    setClaimedRewards(state, claimedRewards) {
+      state.claimedRewards = claimedRewards
     }
   },
   actions: {
@@ -171,11 +175,16 @@ export default new Vuex.Store({
         .then(res => {
           dispatch('getMembers', payload.house)
         })
+<<<<<<< HEAD
 
     },
 
 
 
+=======
+    },
+
+>>>>>>> 5c0165623290d1062b8d48b5e3bf9c93082791df
     // #endregion
     //#region -- Rewards --
     async createReward({ commit, dispatch }, payload) {
@@ -190,8 +199,17 @@ export default new Vuex.Store({
       let res = await api.get('/house/' + houseId + '/reward')
         .then(res => {
           commit('setRewards', res.data)
+<<<<<<< HEAD
         })
     },
+=======
+
+        })
+
+    },
+
+
+>>>>>>> 5c0165623290d1062b8d48b5e3bf9c93082791df
     async deleteReward({ commit, dispatch }, data) {
       await api.delete('/reward/' + data._id)
         .then(res => {
@@ -204,6 +222,18 @@ export default new Vuex.Store({
           dispatch('getRewards', data.editedReward.houseId)
         })
     },
+    async claimReward({ commit, dispatch }, id) {
+      let res = await api.put('/reward/' + id + '/claim')
+        .then(res => {
+          dispatch('getRewardsByUserId', res.data)
+        })
+    },
+    async getRewardsByUserId({ commit, dispatch }, id) {
+      let res = await api.get('/reward/' + id._id + '/claimed')
+        .then(res => {
+          commit('setClaimedRewards', res.data)
+        })
+    }
 
     //#endregion
   },

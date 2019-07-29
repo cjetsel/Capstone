@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-12">Add New House</div>
+      <div class="col-12">Create New House</div>
 
     </div>
     <div class="row">
@@ -17,9 +17,13 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12">Join Existing House</div>
-      <router-link :to="{name:'home'}"> <button class="btn btn-primary">homeview</button></router-link>
+      <div class="col-12">To Join Existing House Notify Administrator</div>
+      <button @click="logout()" class="btn btn-danger rounded-circle" type="button"> <img class="button-img"
+          src="../assets/pokeball.png" alt=""></button>
     </div>
+
+
+
 
     <!-- <div class="row">
       <form>
@@ -57,6 +61,9 @@
         }
         this.$store.dispatch('addHouse', data)
       },
+      logout() {
+        this.$store.dispatch('logout')
+      }
     }
   }
 </script>

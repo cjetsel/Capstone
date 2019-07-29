@@ -3,23 +3,26 @@
   <!-- Pseudo code for walkthough -->
 
   <div class="container-fluid">
-    <div class="row mt-5">
-      <div class="col-1">
-        <router-link :to="{name: 'houses', params: {userId: user._id}}"><img class="back-img"
-            src="../assets/backarrow.png">
-        </router-link><small>Houses</small>
-      </div>
-      <div class="col-1">
-        <button class="btn btn-primary" @click="logout">logout</button>
-      </div>
-      <div class="col-11">
-        <h3>Welcome to House {{house.name}}, {{user.name}}!</h3>
-      </div>
-    </div>
-    <navbar :houseId="this.houseId">
+    <navbar :houseId="this.houseId" class="mt-3">
     </navbar>
-    <div class="row">
-      <member v-bind:member="member" v-for="member in members" :key="member._id" />
+    <div class="row mt-2">
+
+      <div class="col-12">
+        <div v-if="isAdmin" class="row">
+          <h3>Household : {{house.name}}</h3>
+          <h5>Members:</h5>
+          <member v-bind:member="member" v-for="member in members" :key="member._id" />
+        </div>
+        <div v-else>
+          <h5>Your Chores:</h5>
+          <member-chores :houseId="houseId" :userId="this.user._id">
+
+
+          </member-chores>
+
+
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -28,6 +31,7 @@
   // @ is an alias to /src
   import Navbar from "@/components/Navbar.vue"
   import Member from "@/components/member.vue"
+  import MemberChores from "@/components/MemberChores.vue"
 
   export default {
     name: 'home',
@@ -39,7 +43,6 @@
       this.$store.dispatch('authenticate');
       this.$store.dispatch('getMembers', this.houseId)
       this.$store.dispatch('getChores', this.houseId)
-
     },
     computed: {
       isAdmin() {
@@ -65,7 +68,8 @@
     },
     components: {
       Navbar,
-      Member
+      Member,
+      MemberChores
     }
   }
 </script>

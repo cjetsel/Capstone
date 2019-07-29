@@ -1,49 +1,56 @@
 <template>
-  <div class="col-11 btn btn-secondary">
-    <div class="row h-12">
-
-      <div class="col-2 points mx-1 p-0 align-content-center">
+  <div class="col-11 bg-chore rounded mb-1">
+    <div class="row">
+      <div class="col-2 points m-0 p-0 ml-1 align-content-center">
         <div class="row justify-content-center h-12">
           <div class="col-12 p-0 align-self-center">
-
+            {{chore.pointValue}} pts
           </div>
         </div>
       </div>
+      <div class="col-2"></div>
+      <div class="col-7 align-self-center text-left">
+        <div class="row justify-content-center">
+          <div class="col-12 p-0 align-self-center">
+            <h5 class="m-0 chore-upper" @click="hideDescription=!hideDescription"><strong> {{chore.name}}</strong></h5>
+          </div>
+        </div>
 
-      <div class="col-8 align-self-center">{{chore.name}}</div>
-    </div>
-    <div class="row">
-      <div class="col-2">
-        <small class="mt-1">{{chore.pointValue}}</small>
       </div>
-      <div class="col-5"></div>
-      <div class="col-5">
-        <div class="row h-12 justify-content-center">
+
+
+    </div>
+    <div v-if="!hideDescription" class="row justify-content-center mb-2 rounded bg-white">
+      <div class="col-10">
+        <div class="row">
+          <div class="col-12">
+            <small class="m-0 chore-upper">DESCRIPTION:</small>
+            <h6 class="m-0">{{chore.description}}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center mr-2">
+      <div class="col-8 ml-2 m-0 p-0">
+        <div class="row h-12 justify-content-around">
           <div class="col-3 assign mx-1 p-0 align-content-center">
             <div class="row justify-content-center h-12">
               <div class="col-12 p-0 align-self-center">
-                <small class="mt-1" @click="hideAssign=!hideAssign">Assign</small>
+                <small class="mt-1 small-bold" @click="hideAssign=!hideAssign">ASSIGN</small>
               </div>
             </div>
           </div>
-
-
-
-
-
-
-
           <div class="col-3 edit mx-1 p-0 align-content-center">
             <div class="row justify-content-center h-12">
               <div class="col-12 p-0 align-self-center">
-                <small class="align-self-center mt-1" @click="hideEdit=!hideEdit">Edit</small>
+                <small class="small-bold align-self-center mt-1" @click="hideEdit=!hideEdit">EDIT</small>
               </div>
             </div>
           </div>
           <div class="col-3 del mx-1 p-0 align-content-center" @click="deleteChore(chore._id)">
             <div class="row justify-content-center h-12">
               <div class="col-12 p-0 align-self-center">
-                <small class="align-self-center mt-1">Delete</small>
+                <small class="small-bold align-self-center mt-1">DELETE</small>
               </div>
             </div>
           </div>
@@ -114,6 +121,7 @@
       return {
         hideEdit: true,
         hideAssign: true,
+        hideDescription: true,
 
         editedChore: {
           houseId: this.chore.houseId,
@@ -145,7 +153,7 @@
         this.$store.dispatch('deleteChore', data)
       },
       editChore(choreId) {
-        debugger
+
         let data = {
           _id: choreId,
           editedChore: this.editedChore
@@ -153,7 +161,7 @@
         this.$store.dispatch('editChore', data)
       },
       assignChore(choreId) {
-        debugger
+
         let data = {
           _id: choreId,
           editedChore: this.assignedChore,
@@ -183,7 +191,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   .back-img {
     width: 3vh
   }
@@ -192,8 +200,23 @@
     width: 20vw;
   }
 
+  .chore-upper {
+    text-transform: uppercase;
+  }
+
+  .small-bold {
+    color: white;
+    font-weight: bolder !important;
+    text-shadow: 0px 0px 4px #000;
+  }
+
+  .bg-chore {
+    background-color: #ffd34f56;
+    border: 2px solid #ffd34f;
+  }
+
   .h-12 {
-    height: 10vw;
+    height: 12vw;
   }
 
   .points {
@@ -202,33 +225,38 @@
     background-position: center;
     background-repeat: no-repeat;
     color: white;
+    font-weight: bolder;
     text-shadow: 0px 0px 3px #000;
   }
 
   .assign {
     background-image: url("../assets/assign.png");
-    background-size: 8vw;
+    background-size: 10vw;
     background-position: center;
     background-repeat: no-repeat;
     color: white;
+    font-weight: bolder !important;
     text-shadow: 0px 0px 3px #000;
   }
 
   .edit {
     background-image: url("../assets/edit.png");
-    background-size: 8vw;
+    background-size: 10vw;
     background-position: center;
     background-repeat: no-repeat;
     color: white;
+    font-weight: bolder !important;
     text-shadow: 0px 0px 3px #000;
   }
 
   .del {
     background-image: url("../assets/delete.png");
-    background-size: 8vw;
+    background-size: 10vw;
     background-position: center;
     background-repeat: no-repeat;
     color: white;
+    font-weight: bolder !important;
     text-shadow: 0px 0px 3px #000;
+
   }
 </style>

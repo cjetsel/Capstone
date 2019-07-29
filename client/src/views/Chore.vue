@@ -1,12 +1,9 @@
 <template>
   <div class="container-fluid">
-    <navbar :houseId="this.houseId">
+    <navbar :houseId="this.houseId" class="mt-3">
     </navbar>
     <div class="row mt-3">
-      <div class="col-1">
-        <router-link :to="{name: 'home', params: {houseId}}"><img class="back-img" src="../assets/backarrow.png">
-        </router-link><small>Home</small>
-      </div>
+
       <div class="col-11">
         <h1>Add a Chore</h1>
 

@@ -1,5 +1,7 @@
 <template>
   <div class="container-fluid">
+    <navbar :houseId="this.houseId" class="mt-3">
+    </navbar>
     <div class="row mt-5">
       <div class="col-1">
       </div>
@@ -9,8 +11,7 @@
         <h3>Welcome {{user.name}}!</h3>
       </div>
     </div>
-    <navbar :houseId="this.houseId">
-    </navbar>
+
 
     <div class="row">
       <!-- v-for user in users -->
