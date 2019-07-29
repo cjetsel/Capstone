@@ -2,11 +2,26 @@
   <div class="container-fluid">
     <navbar :houseId="this.houseId" class="mt-3"></navbar>
     <div v-if="isAdmin">
-      <div class="row">
+      <!-- OPEN/HIDE FORM -->
+      <div class="row justify-content-center mt-3">
+        <button
+          v-if="!hideForm"
+          class="btn btn-primary col-10"
+          @click="hideForm = !hideForm"
+        >Hide Reward Creator</button>
+        <button v-else class="btn btn-primary col-10 mb-2" @click="hideForm = !hideForm">Add Reward!</button>
+      </div>
+      <!-- REWARD FORM TO OPEN/HIDE -->
+      <div class="row" v-if="!hideForm">
         <div class="col">
-          <form class="align-self-center" @submit.prevent="createReward">
+          <form class="align-self-center" @submit.prevent="createReward(); hideForm=!hideForm">
             <div class="col-12">
-              <input type="text" class="form-control" placeholder="Name" v-model="newReward.title" />
+              <input
+                type="text"
+                class="form-control mt-1"
+                placeholder="Name"
+                v-model="newReward.title"
+              />
               <input
                 type="Number"
                 class="form-control my-1"
@@ -83,6 +98,7 @@ export default {
   props: ["houseId"],
   data() {
     return {
+      hideForm: true,
       newReward: {
         title: "",
         description: "",
